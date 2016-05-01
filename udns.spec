@@ -2,7 +2,7 @@ Summary:	udns library tools
 Summary(pl.UTF-8):	Narzędzia korzystające z biblioteki udns
 Name:		udns
 Version:	0.0.9
-Release:	1
+Release:	2
 License:	LGPL
 Group:		Networking/Utilities
 Source0:	http://www.corpit.ru/mjt/udns/%{name}_%{version}.tar.gz
