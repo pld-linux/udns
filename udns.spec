@@ -8,6 +8,7 @@ Group:		Networking/Utilities
 Source0:	http://www.corpit.ru/mjt/udns/%{name}_%{version}.tar.gz
 # Source0-md5:	78843added6f6b690bc6019ab8ef03c9
 URL:		http://www.corpit.ru/mjt/udns.html
+Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -84,21 +85,22 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/dnsget
 %attr(755,root,root) %{_bindir}/rblcheck
-%{_mandir}/man1/*
+%{_mandir}/man1/dnsget.1*
+%{_mandir}/man1/rblcheck.1*
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*.so.*
+%attr(755,root,root) %{_libdir}/libudns.so.*
 
 %files devel
 %defattr(644,root,root,755)
 %doc NEWS NOTES TODO
 %attr(755,root,root) %{_bindir}/ex-rdns
-%attr(755,root,root) %{_libdir}/*.so
-%{_includedir}/*
+%attr(755,root,root) %{_libdir}/libudns.so
+%{_includedir}/udns.h
 %{_examplesdir}/%{name}-%{version}
-%{_mandir}/man3/*
+%{_mandir}/man3/udns.3*
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/*.a
+%{_libdir}/libudns.a
