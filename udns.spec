@@ -1,12 +1,12 @@
 Summary:	udns library tools
 Summary(pl.UTF-8):	Narzędzia korzystające z biblioteki udns
 Name:		udns
-Version:	0.0.9
-Release:	2
-License:	LGPL
+Version:	0.4
+Release:	1
+License:	LGPL v2.1+
 Group:		Networking/Utilities
-Source0:	http://www.corpit.ru/mjt/udns/%{name}_%{version}.tar.gz
-# Source0-md5:	78843added6f6b690bc6019ab8ef03c9
+Source0:	http://www.corpit.ru/mjt/udns/%{name}-%{version}.tar.gz
+# Source0-md5:	51e141b044b078d71ebb71f823959c1b
 URL:		http://www.corpit.ru/mjt/udns.html
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -58,8 +58,9 @@ Statyczna biblioteka udns.
 %build
 ./configure
 %{__make} staticlib sharedlib dnsget_s ex-rdns_s rblcheck_s \
-	CFLAGS="%{rpmcflags}" \
-	LDFLAGS="%{rpmldflags}"
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -W" \
+	LDFLAGS="%{rpmldflags} %{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -67,13 +68,13 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_examplesdir}/%{name}-%{version},%{_incl
 
 install dnsget_s $RPM_BUILD_ROOT%{_bindir}/dnsget
 install ex-rdns_s $RPM_BUILD_ROOT%{_bindir}/ex-rdns
-install ex-rdns.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 install rblcheck_s $RPM_BUILD_ROOT%{_bindir}/rblcheck
-install udns.h $RPM_BUILD_ROOT%{_includedir}
 install libudns.* $RPM_BUILD_ROOT%{_libdir}
 cp -fd libudns_s.so $RPM_BUILD_ROOT%{_libdir}/libudns.so
-install *.1 $RPM_BUILD_ROOT%{_mandir}/man1
-install *.3 $RPM_BUILD_ROOT%{_mandir}/man3
+cp -p ex-rdns.c $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
+cp -p udns.h $RPM_BUILD_ROOT%{_includedir}
+cp -p *.1 $RPM_BUILD_ROOT%{_mandir}/man1
+cp -p *.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -90,11 +91,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
+%doc NEWS NOTES TODO
 %attr(755,root,root) %{_libdir}/libudns.so.*
 
 %files devel
 %defattr(644,root,root,755)
-%doc NEWS NOTES TODO
 %attr(755,root,root) %{_bindir}/ex-rdns
 %attr(755,root,root) %{_libdir}/libudns.so
 %{_includedir}/udns.h
