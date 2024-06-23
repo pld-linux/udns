@@ -1,12 +1,12 @@
 Summary:	udns library tools
 Summary(pl.UTF-8):	Narzędzia korzystające z biblioteki udns
 Name:		udns
-Version:	0.4
+Version:	0.5
 Release:	1
 License:	LGPL v2.1+
 Group:		Networking/Utilities
 Source0:	http://www.corpit.ru/mjt/udns/%{name}-%{version}.tar.gz
-# Source0-md5:	51e141b044b078d71ebb71f823959c1b
+# Source0-md5:	c8508d27dc82a812bd41153107e9ae7e
 URL:		http://www.corpit.ru/mjt/udns.html
 Requires:	%{name}-libs = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -57,6 +57,7 @@ Statyczna biblioteka udns.
 
 %build
 ./configure
+
 %{__make} staticlib sharedlib dnsget_s ex-rdns_s rblcheck_s \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} %{rpmcppflags} -Wall -W" \
@@ -92,7 +93,7 @@ rm -rf $RPM_BUILD_ROOT
 %files libs
 %defattr(644,root,root,755)
 %doc NEWS NOTES TODO
-%attr(755,root,root) %{_libdir}/libudns.so.*
+%attr(755,root,root) %{_libdir}/libudns.so.0
 
 %files devel
 %defattr(644,root,root,755)
